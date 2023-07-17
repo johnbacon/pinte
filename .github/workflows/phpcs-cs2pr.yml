@@ -1,0 +1,33 @@
+name: phpcs-cs2pr
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  phpcs-cs2pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: phpcs, cs2pr, tightenco/duster
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Composer dependencies
+        uses: "ramsey/composer-install@v2"
+#      - name: Run PHPCS
+#        run: ./vendor/bin/phpcs --report=checkstyle -q / | cs2pr
+      - name: Run PHPCS2
+        run: phpcs --report=checkstyle -q / | cs2pr
+      - name: Run PHPCS3
+        run: /vendor/bin/phpcs --report=checkstyle -q / | cs2pr
+      - name: Run PHPCS4
+        run: bin/phpcs --report=checkstyle -q / | cs2pr

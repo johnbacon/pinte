@@ -1,0 +1,29 @@
+name: reviewdog-phpcs
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  phpcs-check:
+    name: runner / phpcs-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: phpcs-github-pr-check
+        uses: shirobrak/action-phpcs@v1.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-check
+          phpcs_flags: --standard=./phpcs.xml.dist
+  phpcs-review:
+    name: runner / phpcs-review
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: phpcs-github-pr-review
+        uses: shirobrak/action-phpcs@v1.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          phpcs_flags: --standard=./phpcs.xml.dist
