@@ -1,0 +1,3 @@
+runner:
+  duster-lint:
+    cmd: ./vendor/bin/duster lint # (required)
