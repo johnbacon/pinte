@@ -10,15 +10,14 @@ try {
     // ..
 }
 
-$a = function ()
-{
+$a = function () {
     // ..
 };
 
-new class {
+new class() {
     // ..
 };
 
-new class extends stdClass {
+new class() extends stdClass {
     // ..
 };
